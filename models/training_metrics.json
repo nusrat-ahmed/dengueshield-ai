@@ -1,0 +1,90 @@
+{
+  "dataset_rows": 31320,
+  "dataset_columns": 12,
+  "date_start": "2016-01-04",
+  "date_end": "2025-12-29",
+  "cities": [
+    "Chattogram",
+    "Dhaka North",
+    "Dhaka South",
+    "Gazipur",
+    "Narayanganj"
+  ],
+  "wards": 60,
+  "missing_values": 0,
+  "duplicate_ward_dates": 0,
+  "models": {
+    "2": {
+      "selected_model": "random_forest",
+      "validation": {
+        "mae": 0.9856,
+        "rmse": 1.9497,
+        "samples": 3180
+      },
+      "test": {
+        "mae": 1.1477,
+        "rmse": 2.3079,
+        "samples": 3120
+      },
+      "baseline_test": {
+        "mae": 2.3798,
+        "rmse": 4.6067,
+        "samples": 3120
+      },
+      "train_rows": 24660,
+      "validation_rows": 3180,
+      "test_rows": 3120,
+      "train_target_date_end": "2023-12-25",
+      "validation_target_date_range": [
+        "2024-01-01",
+        "2024-12-30"
+      ],
+      "test_target_date_range": [
+        "2025-01-06",
+        "2025-12-29"
+      ],
+      "risk_thresholds": {
+        "low_max": 0.0,
+        "medium_max": 4.0,
+        "high_max": 10.0
+      },
+      "model": "random_forest"
+    },
+    "4": {
+      "selected_model": "random_forest",
+      "validation": {
+        "mae": 1.257,
+        "rmse": 2.4151,
+        "samples": 3180
+      },
+      "test": {
+        "mae": 1.2215,
+        "rmse": 2.3394,
+        "samples": 3120
+      },
+      "baseline_test": {
+        "mae": 2.3798,
+        "rmse": 4.6067,
+        "samples": 3120
+      },
+      "train_rows": 24540,
+      "validation_rows": 3180,
+      "test_rows": 3120,
+      "train_target_date_end": "2023-12-25",
+      "validation_target_date_range": [
+        "2024-01-01",
+        "2024-12-30"
+      ],
+      "test_target_date_range": [
+        "2025-01-06",
+        "2025-12-29"
+      ],
+      "risk_thresholds": {
+        "low_max": 0.0,
+        "medium_max": 4.0,
+        "high_max": 10.0
+      },
+      "model": "random_forest"
+    }
+  }
+}
