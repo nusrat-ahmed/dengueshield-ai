@@ -91,11 +91,26 @@ def train_one(frame: pd.DataFrame, horizon: int, model_dir: Path) -> dict:
     baseline_metrics = metrics(y_test, np.maximum(0, baseline.predict(X_test)))
 
     # Data-derived risk thresholds from training targets only; never use test labels.
-    q50, q75, q90 = np.quantile(y_train, [0.50, 0.75, 0.90]).tolist()
-    thresholds = {"low_max": round(float(q50), 3),
-                  "medium_max": round(float(q75), 3),
-                  "high_max": round(float(q90), 3)}
+    # Calculate dataset-relative risk bands from positive training targets.
+    # Validation and test labels are never used for threshold calculation.
 
+    positive_train_targets = y_train[y_train > 0]
+
+    if positive_train_targets.empty:
+        raise RuntimeError(
+            f"No positive training targets available for {horizon}-week model"
+        )
+
+    q50, q75, q90 = np.quantile(
+        positive_train_targets,
+        [0.50, 0.75, 0.90]
+    ).tolist()
+
+    thresholds = {
+        "low_max": round(float(q50), 3),
+        "medium_max": round(float(q75), 3),
+        "high_max": round(float(q90), 3),
+    }
     model_dir.mkdir(parents=True, exist_ok=True)
     artifact = {
         "model": selected_model,
