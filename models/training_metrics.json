@@ -44,9 +44,9 @@
         "2025-12-29"
       ],
       "risk_thresholds": {
-        "low_max": 0.0,
-        "medium_max": 4.0,
-        "high_max": 10.0
+        "low_max": 5.0,
+        "medium_max": 9.0,
+        "high_max": 14.0
       },
       "model": "random_forest"
     },
@@ -80,9 +80,9 @@
         "2025-12-29"
       ],
       "risk_thresholds": {
-        "low_max": 0.0,
-        "medium_max": 4.0,
-        "high_max": 10.0
+        "low_max": 5.0,
+        "medium_max": 9.0,
+        "high_max": 14.0
       },
       "model": "random_forest"
     }
