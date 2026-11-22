@@ -4,6 +4,7 @@ from __future__ import annotations
 from typing import Literal
 
 from fastapi import FastAPI, HTTPException, Query
+from fastapi.responses import RedirectResponse
 from fastapi.middleware.cors import CORSMiddleware
 
 from .config import CORS_ORIGINS
@@ -26,6 +27,12 @@ app.add_middleware(
     allow_methods=["GET", "POST"],
     allow_headers=["*"],
 )
+@app.get("/", include_in_schema=False)
+def home():
+    return RedirectResponse(
+        url="https://dengueshield-frontend.vercel.app",
+        status_code=307,
+    )
 
 
 @app.get("/health")
