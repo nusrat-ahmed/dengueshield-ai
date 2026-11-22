@@ -5,7 +5,8 @@ import {
   Activity, AlertTriangle, ArrowUpRight, BrainCircuit, CalendarDays,
   CheckCircle2, ChevronDown, CloudRain, Database, Gauge, HeartPulse,
   Layers3, MapPin, RefreshCw, ShieldCheck, SlidersHorizontal,
-  Thermometer, Wind, Zap,
+  Thermometer, Wind, Zap, Bell, ChevronRight, TrendingUp,
+  MapPinned, Sparkles, CloudSun,
 } from "lucide-react";
 import {
   Area, AreaChart, Bar, BarChart, CartesianGrid, Cell,
@@ -230,25 +231,51 @@ export default function DashboardPage() {
     <main className="app-shell" id="top">
       <aside className="sidebar">
         <div className="brand-lockup">
-          <div className="brand-mark"><HeartPulse size={21} /></div>
-          <div><strong>DengueShield</strong><span>WARD RISK OUTLOOK</span></div>
+          <div className="brand-mark"><HeartPulse size={22} /></div>
+          <div>
+            <strong>DengueShield<span className="brand-ai">AI</span></strong>
+            <span>PUBLIC HEALTH INTELLIGENCE</span>
+          </div>
         </div>
+
         <div className="nav-label">WORKSPACE</div>
-        <a className="nav-item active" href="#top"><Layers3 size={17} /> Overview</a>
-        <a className="nav-item" href="#forecast"><Activity size={17} /> Risk forecast</a>
-        <a className="nav-item" href="#model"><BrainCircuit size={17} /> Model insights</a>
+        <nav className="side-nav" aria-label="Main navigation">
+          <a className="nav-item active" href="#top"><Layers3 size={17} /> <span>Overview</span><ChevronRight className="nav-chevron" size={14} /></a>
+          <a className="nav-item" href="#forecast"><Activity size={17} /> <span>Risk forecast</span></a>
+          <a className="nav-item" href="#model"><BrainCircuit size={17} /> <span>Model insights</span></a>
+        </nav>
+
         <div className="sidebar-bottom">
-          <div className="secure-card"><ShieldCheck size={18} /><div><b>Research prototype</b><span>Decision support, not diagnosis</span></div></div>
-          <span className="side-foot">EDU AI Engineering Hackathon 2026</span>
+          <div className="side-status">
+            <div className="side-status-icon"><ShieldCheck size={17} /></div>
+            <div>
+              <b>Research prototype</b>
+              <span>Decision support, not diagnosis</span>
+            </div>
+          </div>
+          <div className="sidebar-project">
+            <span className="project-dot" />
+            <span>EDU AI Engineering Hackathon 2026</span>
+          </div>
         </div>
       </aside>
 
       <section className="main-area">
         <header className="topbar">
-          <div><div className="eyebrow">PUBLIC HEALTH INTELLIGENCE / BANGLADESH</div><h1>Outbreak intelligence</h1></div>
+          <div className="topbar-heading">
+            <div className="eyebrow">BANGLADESH <span>/</span> DENGUE SURVEILLANCE</div>
+            <h1>Outbreak intelligence</h1>
+          </div>
           <div className="top-actions">
-            <span className={`connection ${apiOnline ? "online" : "offline"}`}><i />{apiOnline ? "API connected" : "API offline"}</span>
-            <button className="icon-button" type="button" onClick={() => void loadMeta()} aria-label="Refresh dashboard" disabled={booting}><RefreshCw size={17} className={booting ? "spin" : ""} /></button>
+            <div className={`connection-pill ${apiOnline ? "online" : "offline"}`}>
+              <i /> {apiOnline ? "API connected" : "API offline"}
+            </div>
+            <button className="icon-button" type="button" aria-label="Refresh dashboard" onClick={() => void loadMeta()} disabled={booting}>
+              <RefreshCw size={16} className={booting ? "spin" : ""} />
+            </button>
+            <button className="icon-button notification-button" type="button" aria-label="Notifications" title="Notifications">
+              <Bell size={16} /><span />
+            </button>
             <div className="avatar">DS</div>
           </div>
         </header>
@@ -256,46 +283,122 @@ export default function DashboardPage() {
         <div className="content-wrap">
           <section className="hero-panel">
             <div className="hero-copy">
-              <div className="hero-kicker"><ShieldCheck size={14} /> DENGUE SURVEILLANCE / BANGLADESH</div>
-              <h2>Local signals.<br /><em>Clearer decisions.</em></h2>
-              <p>Explore ward-level dengue forecasts using historical case records, weather patterns and local vulnerability indicators.</p>
-              <div className="hero-tags"><span><MapPin size={13} /> Ward-level coverage</span><span><CalendarDays size={13} /> 2- and 4-week outlooks</span></div>
+              <div className="hero-kicker"><span className="hero-kicker-dot" /> WARD-LEVEL EARLY WARNING</div>
+              <h2>See the signal.<br /><em>Understand the risk.</em></h2>
+              <p>Explore ward-level dengue outlooks using historical case records, weather patterns and local vulnerability indicators.</p>
+              <div className="hero-tags">
+                <span><MapPin size={13} /> Local ward coverage</span>
+                <span><CalendarDays size={13} /> 2- and 4-week outlooks</span>
+                <span><ShieldCheck size={13} /> Model-based estimates</span>
+              </div>
             </div>
-            <div className="hero-side-note">
-              <span>FORECAST HORIZONS</span>
-              <strong>02 <i>/</i> 04</strong>
-              <small>weeks ahead</small>
-              <div>Historical data · Model-based estimates</div>
+            <div className="hero-visual" aria-hidden="true">
+              <div className="radar-grid">
+                <div className="radar-ring ring-one" />
+                <div className="radar-ring ring-two" />
+                <div className="radar-ring ring-three" />
+                <div className="radar-sweep" />
+                <span className="radar-point point-one" />
+                <span className="radar-point point-two" />
+                <span className="radar-point point-three" />
+                <div className="radar-center"><Activity size={24} /></div>
+              </div>
+              <div className="hero-horizon">
+                <span>FORECAST HORIZONS</span>
+                <strong>02 <i>/</i> 04</strong>
+                <small>WEEKS AHEAD</small>
+              </div>
+              <div className="hero-float"><Sparkles size={13} /> Ward intelligence</div>
             </div>
+            <div className="hero-glow" />
+          </section>
+
+          <section className="section-heading overview-heading">
+            <div>
+              <div className="eyebrow">DATA OVERVIEW</div>
+              <h3>Surveillance at a glance</h3>
+              <p>Coverage and quality indicators from the connected historical dataset.</p>
+            </div>
+            <span className="data-source"><Database size={14} /> Historical dataset</span>
           </section>
 
           <section className="stat-grid">
-            <div className="stat-card"><div className="stat-top"><span>Historical observations</span><Database size={17} /></div><strong>{meta ? meta.dataset.rows.toLocaleString() : "—"}</strong><small>Weekly ward records</small></div>
-            <div className="stat-card"><div className="stat-top"><span>Coverage</span><MapPin size={17} /></div><strong>{meta ? `${meta.dataset.wards} wards` : "—"}</strong><small>{meta ? `${meta.dataset.cities.length} cities` : "Dataset coverage"}</small></div>
-            <div className="stat-card"><div className="stat-top"><span>Data period</span><CalendarDays size={17} /></div><strong className="date-stat">{meta ? `${meta.dataset.start_date.slice(0, 4)} — ${meta.dataset.end_date.slice(0, 4)}` : "—"}</strong><small>Historical dataset range</small></div>
-            <div className="stat-card"><div className="stat-top"><span>Data quality</span><CheckCircle2 size={17} /></div><strong>{meta ? (meta.dataset.missing_values === 0 && meta.dataset.duplicate_ward_dates === 0 ? "Verified" : "Review") : "—"}</strong><small>{meta ? `${meta.dataset.missing_values} missing · ${meta.dataset.duplicate_ward_dates} duplicates` : "Missing & duplicate checks"}</small></div>
+            <div className="stat-card">
+              <div className="stat-top"><span>Historical observations</span><div className="stat-icon"><Database size={17} /></div></div>
+              <strong>{meta ? meta.dataset.rows.toLocaleString() : "—"}</strong>
+              <small>Weekly ward records</small>
+            </div>
+            <div className="stat-card">
+              <div className="stat-top"><span>Geographic coverage</span><div className="stat-icon"><MapPinned size={17} /></div></div>
+              <strong>{meta ? `${meta.dataset.wards}` : "—"}<small className="inline-unit"> wards</small></strong>
+              <small>{meta ? `${meta.dataset.cities.length} cities represented` : "Dataset coverage"}</small>
+            </div>
+            <div className="stat-card">
+              <div className="stat-top"><span>Data period</span><div className="stat-icon"><CalendarDays size={17} /></div></div>
+              <strong className="date-stat">{meta ? `${meta.dataset.start_date.slice(0, 4)} — ${meta.dataset.end_date.slice(0, 4)}` : "—"}</strong>
+              <small>Historical dataset range</small>
+            </div>
+            <div className="stat-card">
+              <div className="stat-top"><span>Data quality</span><div className="stat-icon quality-icon"><CheckCircle2 size={17} /></div></div>
+              <strong className={meta && (meta.dataset.missing_values !== 0 || meta.dataset.duplicate_ward_dates !== 0) ? "review-value" : ""}>
+                {meta ? (meta.dataset.missing_values === 0 && meta.dataset.duplicate_ward_dates === 0 ? "Verified" : "Review") : "—"}
+              </strong>
+              <small>{meta ? `${meta.dataset.missing_values} missing · ${meta.dataset.duplicate_ward_dates} duplicates` : "Missing & duplicate checks"}</small>
+            </div>
           </section>
 
-          <div className="section-heading" id="forecast">
-            <div><div className="eyebrow">FORECAST CONFIGURATION</div><h3>Generate a ward-level outlook</h3><p>Choose a location and reference week to run the trained model.</p></div>
+          <div className="section-heading forecast-heading" id="forecast">
+            <div>
+              <div className="eyebrow">FORECAST WORKSPACE</div>
+              <h3>Generate a ward-level outlook</h3>
+              <p>Configure a location and reference week to run the trained model.</p>
+            </div>
             <span className="model-pill"><Zap size={14} /> Local model inference</span>
           </div>
 
           <section className="workspace-grid">
             <div className="panel input-panel">
-              <div className="panel-title"><div className="panel-icon"><SlidersHorizontal size={17} /></div><div><h4>Prediction inputs</h4><p>Configure your forecast</p></div></div>
-              <div className="form-grid">
-                <label>City<select value={city} onChange={e => { setCity(e.target.value); setPrediction(null); }} disabled={booting || !cities.length}><option value="">Select city</option>{cities.map(c => <option key={c} value={c}>{c}</option>)}</select><ChevronDown className="select-chevron" size={14} /></label>
-                <label>Ward<select value={wardId} onChange={e => { setWardId(e.target.value); setPrediction(null); }} disabled={booting || !filteredWards.length}><option value="">Select ward</option>{filteredWards.map(w => <option key={w.ward_id} value={w.ward_id}>{w.ward_id}</option>)}</select><ChevronDown className="select-chevron" size={14} /></label>
-                <label>Reference week<input type="date" value={asOfDate} min={meta?.dataset.start_date} max={meta?.dataset.end_date} onChange={e => { setAsOfDate(e.target.value); setPrediction(null); }} disabled={!meta} /></label>
-                <label>Forecast horizon<select value={horizon} onChange={e => { setHorizon(Number(e.target.value) as 2 | 4); setPrediction(null); }}><option value={2}>2 weeks ahead</option><option value={4}>4 weeks ahead</option></select><ChevronDown className="select-chevron" size={14} /></label>
+              <div className="panel-title">
+                <div className="panel-icon"><SlidersHorizontal size={18} /></div>
+                <div><h4>Prediction inputs</h4><p>Set the forecast parameters</p></div>
+                <span className="panel-step">01 / INPUT</span>
               </div>
-              <div className="scenario-toggle"><div><b>Weather scenario override</b><span>Test a what-if scenario for the selected reference week.</span></div><button type="button" className={`toggle ${scenario ? "on" : ""}`} onClick={() => setScenario(value => !value)} aria-label="Toggle weather override" aria-pressed={scenario}><i /></button></div>
+
+              <div className="form-grid">
+                <label>City
+                  <select value={city} onChange={e => { setCity(e.target.value); setPrediction(null); }} disabled={booting || !cities.length}>
+                    <option value="">Select city</option>{cities.map(c => <option key={c} value={c}>{c}</option>)}
+                  </select>
+                  <ChevronDown className="select-chevron" size={14} />
+                </label>
+                <label>Ward
+                  <select value={wardId} onChange={e => { setWardId(e.target.value); setPrediction(null); }} disabled={booting || !filteredWards.length}>
+                    <option value="">Select ward</option>{filteredWards.map(w => <option key={w.ward_id} value={w.ward_id}>{w.ward_id}</option>)}
+                  </select>
+                  <ChevronDown className="select-chevron" size={14} />
+                </label>
+                <label>Reference week
+                  <input type="date" value={asOfDate} min={meta?.dataset.start_date} max={meta?.dataset.end_date} onChange={e => { setAsOfDate(e.target.value); setPrediction(null); }} disabled={!meta} />
+                </label>
+                <label>Forecast horizon
+                  <select value={horizon} onChange={e => { setHorizon(Number(e.target.value) as 2 | 4); setPrediction(null); }}>
+                    <option value={2}>2 weeks ahead</option><option value={4}>4 weeks ahead</option>
+                  </select>
+                  <ChevronDown className="select-chevron" size={14} />
+                </label>
+              </div>
+
+              <div className="scenario-toggle">
+                <div><b>Weather scenario override</b><span>Explore a what-if weather scenario for this reference week.</span></div>
+                <button type="button" className={`toggle ${scenario ? "on" : ""}`} onClick={() => setScenario(value => !value)} aria-label="Toggle weather override" aria-pressed={scenario}><i /></button>
+              </div>
+
               {scenario && <div className="form-grid scenario-grid">
                 <label><span><CloudRain size={13} /> Rainfall (mm)</span><input type="number" min="0" max="1000" step="0.1" value={rainfall} onChange={e => setRainfall(e.target.value)} /></label>
                 <label><span><Thermometer size={13} /> Avg. temperature (°C)</span><input type="number" min="0" max="55" step="0.1" value={temperature} onChange={e => setTemperature(e.target.value)} /></label>
                 <label><span><Wind size={13} /> Humidity (%)</span><input type="number" min="0" max="100" step="0.1" value={humidity} onChange={e => setHumidity(e.target.value)} /></label>
               </div>}
+
               <button className="primary-button" type="button" onClick={runPrediction} disabled={loading || booting || !apiOnline || !wardId}>
                 {loading ? <><RefreshCw className="spin" size={16} /> Running model…</> : <><Activity size={17} /> Generate risk forecast <ArrowUpRight size={16} /></>}
               </button>
@@ -304,10 +407,19 @@ export default function DashboardPage() {
             </div>
 
             <div className="panel result-panel">
-              <div className="panel-title"><div className="panel-icon result-icon"><Gauge size={17} /></div><div><h4>Forecast result</h4><p>{prediction ? `${prediction.city} · ${prediction.ward_id}` : "Your forecast will appear here"}</p></div></div>
+              <div className="panel-title">
+                <div className="panel-icon result-icon"><Gauge size={18} /></div>
+                <div><h4>Forecast result</h4><p>{prediction ? `${prediction.city} · ${prediction.ward_id}` : "Your model output will appear here"}</p></div>
+                <span className="panel-step">02 / OUTPUT</span>
+              </div>
+
               {prediction ? <>
                 <div className="result-main">
-                  <div><span className="result-label">ESTIMATED CASE COUNT</span><div className="big-number">{formatNumber(prediction.predicted_cases, 1)}<small> cases</small></div><span className="result-date">Target week · {prediction.forecast_target_date}</span></div>
+                  <div>
+                    <span className="result-label">ESTIMATED CASE COUNT</span>
+                    <div className="big-number">{formatNumber(prediction.predicted_cases, 6)}<small> cases</small></div>
+                    <span className="result-date">Target week · {prediction.forecast_target_date}</span>
+                  </div>
                   <span className={`risk-badge ${riskClass[prediction.risk_level] || "neutral"}`}><i />{prediction.risk_level} RISK</span>
                 </div>
                 <div className="result-meta">
@@ -315,31 +427,91 @@ export default function DashboardPage() {
                   <span><CalendarDays size={14} />Reference · {prediction.reference_date}</span>
                   <span>{prediction.horizon_weeks}-week horizon</span>
                 </div>
-                <div className="result-model"><span>Model</span><strong>{prediction.model_name}</strong></div>
+                <div className="result-model"><span>Selected model</span><strong>{prediction.model_name}</strong></div>
+                <div className="threshold-heading"><span>RISK CLASSIFICATION THRESHOLDS</span><small>Artifact-defined</small></div>
                 <div className="threshold-strip">
-                  <span>LOW ≤ {formatNumber(prediction.risk_thresholds.low_max, 1)}</span>
-                  <span>MEDIUM ≤ {formatNumber(prediction.risk_thresholds.medium_max, 1)}</span>
-                  <span>HIGH ≤ {formatNumber(prediction.risk_thresholds.high_max, 1)}</span>
-                  <span>CRITICAL above</span>
+                  <span className="threshold-low">LOW ≤ {formatNumber(prediction.risk_thresholds.low_max, 1)}</span>
+                  <span className="threshold-medium">MEDIUM ≤ {formatNumber(prediction.risk_thresholds.medium_max, 1)}</span>
+                  <span className="threshold-high">HIGH ≤ {formatNumber(prediction.risk_thresholds.high_max, 1)}</span>
+                  <span className="threshold-critical">CRITICAL above</span>
                 </div>
-                <small className="risk-note">Risk category uses the unrounded model output; the case estimate is rounded for display.</small>
-                <div className="driver-list"><b>Signals to review</b>{prediction.risk_drivers.map((d, i) => <div className="driver-item" key={`${d.driver}-${i}`}><span className={`driver-dot ${d.status}`} /><div><strong>{d.driver}</strong><small>{d.explanation}</small></div></div>)}</div>
-              </> : <div className="empty-result"><div className="empty-orb"><Activity size={27} /></div><b>{booting ? "Loading dataset" : loading ? "Generating forecast" : "No forecast generated"}</b><span>{apiOnline ? "Select a city, ward and reference week, then generate a forecast to review the estimated cases and risk category." : "Start the backend API to load the dataset and enable ward-level predictions."}</span><div className="empty-mini"><span>2-week model</span><span>4-week model</span></div></div>}
+                <small className="risk-note">Risk category uses the unrounded model output; the estimate is shown to six decimal places.</small>
+                <div className="driver-list">
+                  <b>Signals to review</b>
+                  {prediction.risk_drivers.map((d, i) => <div className="driver-item" key={`${d.driver}-${i}`}><span className={`driver-dot ${d.status}`} /><div><strong>{d.driver}</strong><small>{d.explanation}</small></div></div>)}
+                </div>
+              </> : <div className="empty-result">
+                <div className="empty-orb"><Activity size={27} /></div>
+                <b>{booting ? "Connecting to dataset" : loading ? "Generating forecast" : apiOnline ? "Ready for your forecast" : "Waiting for API connection"}</b>
+                <span>{apiOnline ? "Choose a city, ward and reference week, then generate an outlook to reveal the model estimate and risk category." : "Start the FastAPI backend to load the dataset and enable ward-level predictions."}</span>
+                <div className="empty-mini"><span><i /> 2-week model</span><span><i /> 4-week model</span></div>
+              </div>}
             </div>
           </section>
 
           {prediction && <section className="insight-grid">
-            <div className="panel"><div className="panel-title"><div className="panel-icon"><CloudRain size={17} /></div><div><h4>Weather signal breakdown</h4><p>Current and accumulated rainfall inputs</p></div></div><div className="chart-wrap"><ResponsiveContainer width="100%" height={220}><AreaChart data={weatherChart} margin={{ top: 10, right: 12, left: -18, bottom: 0 }}><defs><linearGradient id="rainFill" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stopColor="#4b927d" stopOpacity={0.2} /><stop offset="100%" stopColor="#4b927d" stopOpacity={0.01} /></linearGradient></defs><CartesianGrid strokeDasharray="3 3" vertical={false} stroke="#e8eeeb" /><XAxis dataKey="name" tick={{ fill: "#84928c", fontSize: 11 }} /><YAxis tick={{ fill: "#84928c", fontSize: 11 }} /><Tooltip /><Area type="monotone" dataKey="rainfall" stroke="#397d69" fill="url(#rainFill)" strokeWidth={2} /></AreaChart></ResponsiveContainer></div></div>
-            <div className="panel weather-panel"><div className="panel-title"><div className="panel-icon"><Thermometer size={17} /></div><div><h4>Selected weather inputs</h4><p>Conditions used for this forecast</p></div></div><div className="weather-stats"><div><span>Temperature</span><b>{formatNumber(prediction.weather_inputs.avg_temp_c)}°C</b></div><div><span>Rainfall</span><b>{formatNumber(prediction.weather_inputs.rainfall_mm)} mm</b></div><div><span>Humidity</span><b>{formatNumber(prediction.weather_inputs.relative_humidity_pct)}%</b></div><div><span>4-week rainfall</span><b>{formatNumber(prediction.weather_inputs.rainfall_sum_4w)} mm</b></div></div></div>
+            <div className="panel">
+              <div className="panel-title"><div className="panel-icon"><CloudRain size={18} /></div><div><h4>Weather signal breakdown</h4><p>Current and accumulated rainfall inputs</p></div></div>
+              <div className="chart-wrap">
+                <ResponsiveContainer width="100%" height={230}>
+                  <AreaChart data={weatherChart} margin={{ top: 10, right: 12, left: -18, bottom: 0 }}>
+                    <defs><linearGradient id="rainFill" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stopColor="#35a88a" stopOpacity={0.28} /><stop offset="100%" stopColor="#35a88a" stopOpacity={0.015} /></linearGradient></defs>
+                    <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="#e8efeb" />
+                    <XAxis dataKey="name" tick={{ fill: "#7e9087", fontSize: 10 }} axisLine={false} tickLine={false} />
+                    <YAxis tick={{ fill: "#7e9087", fontSize: 10 }} axisLine={false} tickLine={false} />
+                    <Tooltip />
+                    <Area type="monotone" dataKey="rainfall" stroke="#21866b" fill="url(#rainFill)" strokeWidth={2.5} />
+                  </AreaChart>
+                </ResponsiveContainer>
+              </div>
+            </div>
+            <div className="panel weather-panel">
+              <div className="panel-title"><div className="panel-icon"><CloudSun size={18} /></div><div><h4>Selected weather inputs</h4><p>Conditions used for this forecast</p></div></div>
+              <div className="weather-stats">
+                <div><span>Temperature</span><b>{formatNumber(prediction.weather_inputs.avg_temp_c)}°C</b></div>
+                <div><span>Rainfall</span><b>{formatNumber(prediction.weather_inputs.rainfall_mm)} mm</b></div>
+                <div><span>Humidity</span><b>{formatNumber(prediction.weather_inputs.relative_humidity_pct)}%</b></div>
+                <div><span>4-week rainfall</span><b>{formatNumber(prediction.weather_inputs.rainfall_sum_4w)} mm</b></div>
+              </div>
+            </div>
           </section>}
 
-          <section className="section-heading model-heading" id="model"><div><div className="eyebrow">MODEL TRANSPARENCY</div><h3>Performance & methodology</h3><p>Chronological holdout evaluation on the supplied historical dataset.</p></div></section>
-          <section className="model-grid">
-            <div className="panel performance-panel"><div className="panel-title"><div className="panel-icon"><Gauge size={17} /></div><div><h4>{horizon}-week model performance</h4><p>Final test period · 2025</p></div></div><div className="performance-stats"><div><span>Test MAE</span><strong>{metricForHorizon ? formatNumber(metricForHorizon.test.mae, 3) : "—"}</strong><small>Mean absolute error</small></div><div><span>Test RMSE</span><strong>{metricForHorizon ? formatNumber(metricForHorizon.test.rmse, 3) : "—"}</strong><small>Root mean squared error</small></div><div><span>Baseline MAE</span><strong>{metricForHorizon ? formatNumber(metricForHorizon.baseline_test.mae, 3) : "—"}</strong><small>Median baseline</small></div></div><div className="method-note"><CheckCircle2 size={15} /> Time-ordered split: train through 2023, validate on 2024, test on 2025. Test data was not used for model selection.</div></div>
-            <div className="panel importance-panel"><div className="panel-title"><div className="panel-icon"><Activity size={17} /></div><div><h4>Global model drivers</h4><p>Top features by model importance</p></div></div>{metrics?.feature_importance?.length ? <div className="importance-chart"><ResponsiveContainer width="100%" height={240}><BarChart data={metrics.feature_importance.slice(0, 7)} layout="vertical" margin={{ top: 2, right: 16, left: 12, bottom: 2 }}><CartesianGrid strokeDasharray="3 3" horizontal={false} stroke="#e8eeeb" /><XAxis type="number" hide /><YAxis type="category" dataKey="feature" width={126} tick={{ fill: "#718078", fontSize: 10 }} /><Tooltip /><Bar dataKey="importance" radius={[0, 4, 4, 0]}>{metrics.feature_importance.slice(0, 7).map((_, i) => <Cell key={i} fill={i === 0 ? "#356d5c" : "#86a99b"} />)}</Bar></BarChart></ResponsiveContainer></div> : <div className="empty-small">Model feature importance will appear when the API is available.</div>}</div>
+          <section className="section-heading model-heading" id="model">
+            <div><div className="eyebrow">MODEL TRANSPARENCY</div><h3>Performance & methodology</h3><p>Chronological holdout evaluation on the supplied historical dataset.</p></div>
+            <span className="data-source"><BrainCircuit size={14} /> Model insights</span>
           </section>
 
-          <section className="notice-panel"><div className="notice-icon"><AlertTriangle size={18} /></div><div><b>Important data limitation</b><p>{prediction?.data_note || `The supplied dataset covers ${meta?.dataset.start_date || "the historical period"} to ${meta?.dataset.end_date || "the latest available date"}. Forecasts are anchored to a selected historical reference week; this build does not fetch live weather or official current case counts. Treat outputs as research decision-support estimates, not clinical or operational instructions.`}</p></div></section>
+          <section className="model-grid">
+            <div className="panel performance-panel">
+              <div className="panel-title"><div className="panel-icon"><Gauge size={18} /></div><div><h4>{horizon}-week model performance</h4><p>Final test period · 2025</p></div></div>
+              <div className="performance-stats">
+                <div><span>Test MAE</span><strong>{metricForHorizon ? formatNumber(metricForHorizon.test.mae, 3) : "—"}</strong><small>Mean absolute error</small></div>
+                <div><span>Test RMSE</span><strong>{metricForHorizon ? formatNumber(metricForHorizon.test.rmse, 3) : "—"}</strong><small>Root mean squared error</small></div>
+                <div><span>Baseline MAE</span><strong>{metricForHorizon ? formatNumber(metricForHorizon.baseline_test.mae, 3) : "—"}</strong><small>Median baseline</small></div>
+              </div>
+              <div className="method-note"><CheckCircle2 size={15} /> Time-ordered split: train through 2023, validate on 2024, test on 2025. Test data was not used for model selection.</div>
+            </div>
+            <div className="panel importance-panel">
+              <div className="panel-title"><div className="panel-icon"><TrendingUp size={18} /></div><div><h4>Global model drivers</h4><p>Top features by model importance</p></div></div>
+              {metrics?.feature_importance?.length ? <div className="importance-chart">
+                <ResponsiveContainer width="100%" height={250}>
+                  <BarChart data={metrics.feature_importance.slice(0, 7)} layout="vertical" margin={{ top: 2, right: 16, left: 12, bottom: 2 }}>
+                    <CartesianGrid strokeDasharray="3 3" horizontal={false} stroke="#e8efeb" />
+                    <XAxis type="number" hide />
+                    <YAxis type="category" dataKey="feature" width={126} tick={{ fill: "#71857b", fontSize: 10 }} axisLine={false} tickLine={false} />
+                    <Tooltip />
+                    <Bar dataKey="importance" radius={[0, 5, 5, 0]}>{metrics.feature_importance.slice(0, 7).map((_, i) => <Cell key={i} fill={i === 0 ? "#14866b" : "#8bc8b2"} />)}</Bar>
+                  </BarChart>
+                </ResponsiveContainer>
+              </div> : <div className="empty-small">Model feature importance will appear when the API is available.</div>}
+            </div>
+          </section>
+
+          <section className="notice-panel">
+            <div className="notice-icon"><AlertTriangle size={18} /></div>
+            <div><b>Important data limitation</b><p>{prediction?.data_note || `The supplied dataset covers ${meta?.dataset.start_date || "the historical period"} to ${meta?.dataset.end_date || "the latest available date"}. Forecasts are anchored to a selected historical reference week; this build does not fetch live weather or official current case counts. Treat outputs as research decision-support estimates, not clinical or operational instructions.`}</p></div>
+          </section>
+
           <footer className="footer"><span>© 2026 DengueShield AI · EDU AI Engineering Hackathon</span><span>Built for SDG 3 & SDG 10</span></footer>
         </div>
       </section>
